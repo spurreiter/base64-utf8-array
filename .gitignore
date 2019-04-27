@@ -1,0 +1,7 @@
+node_modules/
+build/
+lib/
+tmp/
+*.log
+*.tgz
+build/
