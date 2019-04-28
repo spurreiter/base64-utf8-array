@@ -1,6 +1,6 @@
 node_modules/
 build/
-lib/
+#lib/
 tmp/
 *.log
 *.tgz

@@ -13,17 +13,12 @@ module.exports = function karmaConfig (config) {
       // Reference: https://github.com/mlex/karma-spec-reporter
       // Set reporter to print detailed results to console
       'spec',
-
       // Reference: https://github.com/karma-runner/karma-coverage
       // Output code coverage files
       'coverage'
     ],
 
     files: [
-      // Reference: https://www.npmjs.com/package/phantomjs-polyfill
-      // Needed because React.js requires bind and phantomjs does not support it
-      // 'node_modules/phantomjs-polyfill/bind-polyfill.js',
-
       // Grab all files in the tests directory that contain _test.
       'test/**/*.spec.js'
     ],
@@ -36,11 +31,9 @@ module.exports = function karmaConfig (config) {
     },
 
     browsers: [
-      // Run tests using PhantomJS
-      // 'PhantomJS'
-      // 'Chrome'
+      // 'Firefox',
+      // 'Chrome',
       'ChromeHeadless'
-      // 'Firefox'
     ],
 
     singleRun: true,
@@ -49,6 +42,12 @@ module.exports = function karmaConfig (config) {
     coverageReporter: {
       dir: 'build/coverage/',
       type: 'html'
+    },
+
+    client: {
+      mocha: {
+        reporter: 'html' // change Karma's debug.html to the mocha web reporter
+      }
     },
 
     // Test webpack config

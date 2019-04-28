@@ -1,15 +1,19 @@
-const { atob, btoa } = (function () {
-  const isNode = typeof window === 'undefined' && typeof Buffer === 'function'
+const isNode = typeof window === 'undefined' && typeof process === 'object'
 
-  const atob = isNode
-    ? (sBase64) => Buffer.from(sBase64, 'base64').toString('binary')
-    : window.atob
-  const btoa = isNode
-    ? (sBinary) => Buffer.from(sBinary, 'binary').toString('base64')
-    : window.btoa
+const atob = isNode
+  ? (sBase64) => Buffer.from(sBase64, 'base64').toString('binary')
+  : window.atob
+const btoa = isNode
+  ? (sBinary) => Buffer.from(sBinary, 'binary').toString('base64')
+  : window.btoa
 
-  return { atob, btoa }
-})()
+// detect support for linebreaks in `atob`
+let supportsCR = true
+try {
+  !isNode && atob('\r\n')
+} catch (e) {
+  supportsCR = false
+}
 
 /**
  * converts a string to an Uint8Array
@@ -17,10 +21,21 @@ const { atob, btoa } = (function () {
  */
 function stringToUint8Array (str) {
   const array = new Uint8Array(str.length)
-  Array.prototype.forEach.call(array, (el, idx, arr) => {
-    arr[idx] = str.charCodeAt(idx)
-  })
+  for (let i = 0; i < array.length; i++) {
+    array[i] = str.charCodeAt(i)
+  }
   return array
+}
+
+/**
+ * @private
+ */
+function uint8ArrayToString (arrUint8) {
+  var sUtf8 = ''
+  for (let c of arrUint8) {
+    sUtf8 += String.fromCharCode(c)
+  }
+  return sUtf8
 }
 
 /**
@@ -33,8 +48,10 @@ function stringToUint8Array (str) {
  * const str = utf8ArrayToString(aUtf8)
  * //> str = 'abc'
  */
-function base64Decode (sBase64) {
-  const sBinary = atob(sBase64)
+function base64Decode (sBase64 = '') {
+  // e.g. IE11 requires to remove unallowed chars like linebreaks
+  if (!supportsCR) sBase64 = sBase64.replace(/[\r\n]/g, '')
+  const sBinary = atob(sBase64) // eslint-disable-line node/no-deprecated-api
   const arrUint8 = stringToUint8Array(sBinary)
   return arrUint8
 }
@@ -50,7 +67,7 @@ function base64Decode (sBase64) {
  * //> sbase64 = 'YWJj'
  */
 function base64Encode (arrUint8) {
-  return btoa(String.fromCharCode.apply(null, arrUint8))
+  return btoa(uint8ArrayToString(arrUint8)) // eslint-disable-line node/no-deprecated-api
 }
 
 /**
@@ -59,7 +76,7 @@ function base64Encode (arrUint8) {
  * @returns {string} UTF16 string
  */
 function utf8ArrayToString (aUtf8) {
-  const sUtf8 = String.fromCharCode.apply(null, aUtf8)
+  const sUtf8 = uint8ArrayToString(aUtf8)
   return decodeURIComponent(escape(sUtf8))
 }
 

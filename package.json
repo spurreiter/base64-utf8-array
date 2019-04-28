@@ -8,9 +8,22 @@
     "utf8"
   ],
   "homepage": "https://github.com/spurreiter/base64-utf8-array",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/spurreiter/base64-utf8-array.git"
+  },
   "license": "MIT",
   "author": "Sebastian Purreiter",
-  "main": "lib",
+  "main": "lib/index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-env"
+    ]
+  },
   "scripts": {
     "all": "npm run clean && npm run lint && npm run transpile && npm test",
     "clean": "rimraf lib *.tgz",
@@ -21,9 +34,12 @@
     "test:mocha": "mocha",
     "transpile": "babel -d lib src"
   },
+  "dependencies": {},
   "devDependencies": {
     "@babel/cli": "^7.4.4",
     "@babel/core": "^7.4.4",
+    "@babel/polyfill": "^7.4.4",
+    "@babel/preset-env": "^7.4.4",
     "babel-loader": "^8.0.5",
     "eslint": "^5.16.0",
     "eslint-config-standard": "^12.0.0",
@@ -34,6 +50,7 @@
     "karma": "^4.1.0",
     "karma-chrome-launcher": "^2.2.0",
     "karma-coverage": "^1.1.2",
+    "karma-firefox-launcher": "^1.1.0",
     "karma-mocha": "^1.3.0",
     "karma-sourcemap-loader": "^0.3.7",
     "karma-spec-reporter": "0.0.32",
