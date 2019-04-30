@@ -1,6 +1,6 @@
 {
   "name": "base64-utf8-array",
-  "version": "1.0.0-1",
+  "version": "1.0.0",
   "description": "base64 en-decode using utf8 Uint8Array",
   "keywords": [
     "base64",
