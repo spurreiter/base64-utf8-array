@@ -8,6 +8,9 @@
     "utf8"
   ],
   "homepage": "https://github.com/spurreiter/base64-utf8-array",
+  "bugs": {
+    "url": "https://github.com/spurreiter/base64-utf8-array/issues"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/spurreiter/base64-utf8-array.git"
@@ -19,20 +22,21 @@
     "lib": "lib",
     "test": "test"
   },
-  "babel": {
-    "presets": [
-      "@babel/preset-env"
-    ]
-  },
   "scripts": {
     "all": "npm run clean && npm run lint && npm run transpile && npm test",
     "clean": "rimraf lib *.tgz",
     "docs": "documentation readme src/index.js --section=Api && markedpp -i README.md -o README.md --github",
     "lint": "eslint \"**/*.js\"",
+    "prepublishOnly": "npm run all",
     "test": "npm run test:mocha && npm run test:karma",
     "test:karma": "karma start",
     "test:mocha": "mocha",
     "transpile": "babel -d lib src"
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-env"
+    ]
   },
   "dependencies": {},
   "devDependencies": {
