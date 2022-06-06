@@ -1,9 +1,0 @@
-node_modules/
-build/
-test/
-tmp/
-*.log
-*.tgz
-.*
-webpack.config.js
-karma.conf.js

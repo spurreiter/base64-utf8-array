@@ -1,6 +1,7 @@
 require('@babel/polyfill')
 
-const assert = require('assert')
+const { assert } = require('chai')
+
 const {
   base64Decode,
   base64Encode,

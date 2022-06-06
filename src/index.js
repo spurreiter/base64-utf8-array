@@ -31,8 +31,8 @@ function stringToUint8Array (str) {
  * @private
  */
 function uint8ArrayToString (arrUint8) {
-  var sUtf8 = ''
-  for (let c of arrUint8) {
+  let sUtf8 = ''
+  for (const c of arrUint8) {
     sUtf8 += String.fromCharCode(c)
   }
   return sUtf8
@@ -51,7 +51,7 @@ function uint8ArrayToString (arrUint8) {
 function base64Decode (sBase64 = '') {
   // e.g. IE11 requires to remove unallowed chars like linebreaks
   if (!supportsCR) sBase64 = sBase64.replace(/[\r\n]/g, '')
-  const sBinary = atob(sBase64) // eslint-disable-line node/no-deprecated-api
+  const sBinary = atob(sBase64)
   const arrUint8 = stringToUint8Array(sBinary)
   return arrUint8
 }
@@ -67,7 +67,7 @@ function base64Decode (sBase64 = '') {
  * //> sbase64 = 'YWJj'
  */
 function base64Encode (arrUint8) {
-  return btoa(uint8ArrayToString(arrUint8)) // eslint-disable-line node/no-deprecated-api
+  return btoa(uint8ArrayToString(arrUint8))
 }
 
 /**
