@@ -11,6 +11,7 @@ const btoa = isNode
 let supportsCR = true
 try {
   !isNode && atob('\r\n')
+// eslint-disable-next-line no-unused-vars
 } catch (e) {
   supportsCR = false
 }
