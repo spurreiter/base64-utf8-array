@@ -1,3 +1,7 @@
+# 1.0.3 (2024-07-13)
+
+- chore: bump devDependencies (#c34a078)
+
 # 1.0.2 (2023-09-28)
 
 - chore: bump devDependencies (#0498775)
